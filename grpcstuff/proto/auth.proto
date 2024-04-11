@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package grpcstuff;
+
+option go_package = "../pb";
+
+message LoginRequest {
+    string MPhone = 1;
+    string Password = 2;
+}
+
+message AuthResponse {
+    string Token = 1;
+}
+
+message SignupRequest {
+    string FirstName = 1;
+    string LastName = 2;
+    string MPhone = 3;
+    string Email = 4;
+    string Password = 5;
+    string RepeatPassword = 6;
+}
+
+message SignupResponse{
+    bool Result = 1;
+    string MPhone = 2;
+}
+
+
+message MPhoneUsedRequest {
+    string MPhone = 1;
+}
+
+message EmailUsedRequest {
+    string Email = 1;
+}
+
+message UsedResponse {
+    bool Used = 1;
+}
+    
+service AuthService {
+    rpc Login(LoginRequest) returns (AuthResponse);
+    rpc Signup(SignupRequest) returns (SignupResponse);
+    rpc IsMPhoneUsed(MPhoneUsedRequest) returns (UsedResponse);
+    rpc IsEmailUsed(EmailUsedRequest) returns (UsedResponse);
+}
