@@ -20,7 +20,7 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
 
-      - uses: actions/checkout@lates
+      - uses: actions/checkout@latest
 
       - name: Test
         run: go test ./...
