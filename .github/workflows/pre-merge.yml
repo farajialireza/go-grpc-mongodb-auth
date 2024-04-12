@@ -31,7 +31,9 @@ jobs:
         config-file: .github/workflows/codeql/codeql-config.yml
 
     - name: Install Dependencies
-      run: go mod tidy
+      run: |
+        go mod init
+        go mod tidy
 
     - name: Build
       run: go build -v ./...
