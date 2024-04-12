@@ -21,3 +21,6 @@
 go.work
 
 *.env
+
+go.mod
+go.sum
