@@ -63,6 +63,7 @@ jobs:
         echo DB_URI = mongodb+srv://alireza:sfNeQYadliv9oAkD@cluster0.9gs5hrc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 >> global/.env
         echo DB_NAME = cp_platform_v01beta >> global/.env
         echo PASETO_SECRET = EnterYourVerySecureSecretHere >> global/.env
+        cat global/.env
         go test -v
 
     - name: Upload Test Results
