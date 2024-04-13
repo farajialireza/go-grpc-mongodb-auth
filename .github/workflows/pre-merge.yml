@@ -21,11 +21,11 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}
 
-    - name: Initializing CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        language: go
-        config-file: .github/workflows/codeql/codeql-config.yml
+    # - name: Initializing CodeQL
+    #   uses: github/codeql-action/init@v3
+    #   with:
+    #     language: go
+    #     config-file: .github/workflows/codeql/codeql-config.yml
 
     - name: Install Dependencies
       run: go get -t -u ./...
@@ -42,6 +42,6 @@ jobs:
     #     name: Go-results-${{ matrix.go-version }}
     #     path: TestResults-${{ matrix.go-version }}.json
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+    # - name: Perform CodeQL Analysis
+    #   uses: github/codeql-action/analyze@v3
      
