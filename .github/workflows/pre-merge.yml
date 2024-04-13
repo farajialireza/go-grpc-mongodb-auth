@@ -1,4 +1,4 @@
-name: Go
+name: Code Analysis, Test, Build
 
 on:
   push:
@@ -8,12 +8,11 @@ on:
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
+    name: analyze source code
 
     runs-on: ubuntu-latest
     timeout-minutes: 360
     permissions:
-      # required for all workflows
       security-events: write
 
       # required to fetch internal or private CodeQL packs
@@ -55,27 +54,22 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}
 
-    # - name: Initializing CodeQL
-    #   uses: github/codeql-action/init@v3
-    #   with:
-    #     language: go
-    #     config-file: .github/workflows/codeql/codeql-config.yml
-
     - name: Install Dependencies
       run: go get -t -u ./...
 
+    - name: Test
+      run: |
+        touch global/.env
+        echo DB_URI = mongodb+srv://alireza:sfNeQYadliv9oAkD@cluster0.9gs5hrc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 >> global/.env
+        echo DB_NAME = cp_platform_v01beta >> global/.env
+        echo PASETO_SECRET = EnterYourVerySecureSecretHere >> global/.env
+        go test -v
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: Go-results-${{ matrix.go-version }}
+        path: TestResults-${{ matrix.go-version }}.json
+
     - name: Build
       run: go build -v ./...
-
-    # - name: Test
-    #   run: go test -v
-
-    # - name: Upload Test Results
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Go-results-${{ matrix.go-version }}
-    #     path: TestResults-${{ matrix.go-version }}.json
-
-    # - name: Perform CodeQL Analysis
-    #   uses: github/codeql-action/analyze@v3
-     
