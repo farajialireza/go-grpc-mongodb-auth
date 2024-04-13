@@ -27,12 +27,9 @@ func ConnectToDB() {
 		log.Println("Main Could not open .env file")
 	}
 
-	log.Println("PATH", env)
-	log.Println("THIS IS IT 001", os.Getenv("GRPC_MONGO_ENV"))
-
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("DB_URI")))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://alireza:sfNeQYadliv9oAkD@cluster0.9gs5hrc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"))
 	if err != nil {
 		log.Println("Could not connect to db", err)
 	}
@@ -40,5 +37,5 @@ func ConnectToDB() {
 	if err != nil {
 		log.Fatal("Error connecting to DB", err.Error())
 	}
-	DB = *client.Database(os.Getenv("DB_NAME"))
+	DB = *client.Database("cp_platform_v01beta")
 }

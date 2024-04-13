@@ -27,10 +27,10 @@ func (u User) CreateToken() string {
 		log.Println("Main Could not open .env file")
 	}
 
-	anghezi, err := paseto.NewV2().Encrypt([]byte(os.Getenv("PASETO_SECRET")), u.ID, nil)
+	t, err := paseto.NewV2().Encrypt([]byte("EnterYourVerySecureSecretHere"), u.ID, nil)
 	if err != nil {
 		log.Fatal(err)
 		return ""
 	}
-	return anghezi
+	return t
 }

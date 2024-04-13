@@ -24,3 +24,5 @@ go.work
 
 go.mod
 go.sum
+
+*.bak
